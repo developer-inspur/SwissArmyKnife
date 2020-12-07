@@ -33,17 +33,23 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptPanelView extends LinearLayout {
+public class OptPanelView extends LinearLayout implements ICustomPanel {
   private GridView function;
   private NumberPicker startRange;
   private NumberPicker endRange;
   private LinearLayout unitGroup;
   private CheckBox clipDraw;
   private Config config;
-  private OnClickListener confirmListener;
+  private PanelDismissObserver mDisOb;
 
-  public void setConfirmListener(OnClickListener confirmListener) {
-    this.confirmListener = confirmListener;
+  @Override
+  public View getContentView() {
+    return this;
+  }
+
+  @Override
+  public void setDismissHandler(PanelDismissObserver observer) {
+    mDisOb = observer;
   }
 
   public OptPanelView(@NonNull Context context) {
@@ -63,8 +69,8 @@ public class OptPanelView extends LinearLayout {
     findViewById(R.id.confirm).setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (confirmListener != null) {
-          confirmListener.onClick(v);
+        if (mDisOb != null) {
+          mDisOb.onMessage();
         }
       }
     });
@@ -76,8 +82,8 @@ public class OptPanelView extends LinearLayout {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
           getContext().startActivity(intent);
-          if (confirmListener != null) {
-            confirmListener.onClick(v);
+          if (mDisOb != null) {
+            mDisOb.onMessage();
           }
         } catch (Exception e) {
         }
@@ -258,6 +264,10 @@ public class OptPanelView extends LinearLayout {
           } else {
             layers.remove(layer);
             layers.add(0, layer);
+          }
+
+          if (layer instanceof ICustomPanel) {
+            mDisOb.onMessage();
           }
           break;
         }
