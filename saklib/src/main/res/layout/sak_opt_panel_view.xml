@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Swiss Army Knife"
+        android:text="调试工具"
         android:textColor="#333333"
         android:textSize="15dp" />
 
