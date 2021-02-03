@@ -23,7 +23,7 @@ public class RenderNodeV29Impl extends RenderNodeCompact {
   public RecordingCanvas beginRecording(int width, int height) {
 //    renderNode.setLeftTopRightBottom(0, 0, width, height);
     try {
-      Method method = RenderNode.class.getDeclaredMethod("setLeftTopRightBottom", int.class, int.class, int.class, int.class);
+      Method method = RenderNode.class.getDeclaredMethod("setPosition", int.class, int.class, int.class, int.class);
       method.setAccessible(true);
       method.invoke(renderNode, 0, 0, width, height);
     } catch (Exception e) {
