@@ -37,7 +37,7 @@ public class SecAct extends AppCompatActivity {
         findViewById(R.id.install).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SAK.init(getApplication(), null);
+                SAK.install(getApplication(), null);
             }
         });
         findViewById(R.id.uninstall).setOnClickListener(new View.OnClickListener() {

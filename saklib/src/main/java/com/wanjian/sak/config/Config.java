@@ -9,6 +9,7 @@ import com.wanjian.sak.converter.Px2DpSizeConverter;
 import com.wanjian.sak.converter.Px2SpSizeConverter;
 import com.wanjian.sak.filter.ViewFilter;
 import com.wanjian.sak.layer.Layer;
+import com.wanjian.sak.page.core.Pager;
 import com.wanjian.sak.utils.Check;
 
 import java.util.ArrayList;
@@ -23,12 +24,13 @@ public class Config {
 
     private int minRange;
     private int maxRange;
-//    private List<AbsLayer> mLayerViews = new ArrayList<>();
+    //    private List<AbsLayer> mLayerViews = new ArrayList<>();
     private List<ISizeConverter> mSizeConverterList = new ArrayList<>();
     private int startRange;
     private int endRange;
     private boolean clipDraw;
-    List<Item>mLayerList;
+    List<Item> mFunctionList;
+
     private Config(Build build) {
 //        mLayerViews.addAll(build.mDefaultLayerViews);
 //        mLayerViews.addAll(build.mCustomerLayerViews);
@@ -39,11 +41,11 @@ public class Config {
         minRange = build.min;
         maxRange = build.max;
         clipDraw = build.clipDraw;
-        mLayerList = build.mLayerList;
+        mFunctionList = build.mFunctionList;
     }
 
-    public List<Item> getLayerList() {
-        return mLayerList;
+    public List<Item> getFunctionList() {
+        return mFunctionList;
     }
 
 //    public List<AbsLayer> getLayerViews() {
@@ -93,7 +95,7 @@ public class Config {
         Context mContext;
         List<ISizeConverter> mSizeConverterList = new ArrayList<>();
         ViewFilter mViewFilter;
-        List<Item>mLayerList=new ArrayList<>();
+        List<Item> mFunctionList = new ArrayList<>();
         int min = 0;
         int max = 50;
         boolean clipDraw = true;
@@ -146,9 +148,15 @@ public class Config {
         }
 
         public Build addLayer(Class<? extends Layer> clz, Drawable icon, String iconName) {
-            mLayerList.add(new Item(clz,icon,iconName));
+            mFunctionList.add(new Item(clz, icon, iconName, Item.TYPE.LAYER));
             return this;
         }
+
+        public Build addPager(Class<? extends Pager> clz, Drawable icon, String iconName) {
+            mFunctionList.add(new Item(clz, icon, iconName, Item.TYPE.PAGER));
+            return this;
+        }
+
         public Config build() {
             return new Config(this);
         }
