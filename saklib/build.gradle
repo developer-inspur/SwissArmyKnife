@@ -48,7 +48,7 @@ publishing {
         bar(MavenPublication) {
             groupId  'com.inspur.SwissArmyKnife'// 仓库组Id
             artifactId 'saklib'
-            version '3.0.1-inspur'
+            version '3.0.3-inspur'
             artifact("${buildDir}/outputs/aar/saklib-release.aar")
         }
     }
