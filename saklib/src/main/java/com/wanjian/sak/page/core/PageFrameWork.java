@@ -75,6 +75,7 @@ public class PageFrameWork {
         newPager.onCreate(newRecord.data);
         mRootContainer.addView(newPager.getContentView(), newPager.getLayoutParams());
         newPager.onShow();
+
     }
 
     public void finishPage(String token) {
@@ -101,15 +102,16 @@ public class PageFrameWork {
                 newRecord.pager.onPageResult(targetRecord.pager.getRequestCode(), targetRecord.pager.getResultCode(), targetRecord.pager.getResultData());
             }
 
+            mRootContainer.addView(newRecord.pager.getContentView(), newRecord.pager.getLayoutParams());
             // 新页面show
             newRecord.pager.onShow();
-            mRootContainer.addView(newRecord.pager.getContentView(), newRecord.pager.getLayoutParams());
         }
 
         // 旧页面destroy
         if (null != targetRecord) {
             targetRecord.pager.onDestroy();
         }
+
     }
 
     private PageRecord buildRecord(PageAction action) {
