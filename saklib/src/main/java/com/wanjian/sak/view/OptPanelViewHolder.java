@@ -1,6 +1,7 @@
 package com.wanjian.sak.view;
 
 import android.app.Application;
+import android.util.Log;
 import android.view.InputEvent;
 import android.view.View;
 import android.view.ViewRootImpl;
@@ -189,11 +190,15 @@ public class OptPanelViewHolder implements IWindowChangeListener{
         view.post(new Runnable() {
             @Override
             public void run() {
-                LayerRoot layerRoot = LayerRoot.create(mConfig, viewRootImpl, view, mApplication);
-                enableIfNeeded(layerRoot);
-                observerUIChange(mConfig, layerRoot, viewRootImpl, view);
-                observerInputEvent(mConfig, layerRoot, viewRootImpl, view);
-                addLayerRoot(layerRoot);
+                try {
+                    LayerRoot layerRoot = LayerRoot.create(mConfig, viewRootImpl, view, mApplication);
+                    enableIfNeeded(layerRoot);
+                    observerUIChange(mConfig, layerRoot, viewRootImpl, view);
+                    observerInputEvent(mConfig, layerRoot, viewRootImpl, view);
+                    addLayerRoot(layerRoot);
+                } catch (Throwable e) {
+                    Log.e("sak", "onAddWindow exception = " + Log.getStackTraceString(e));
+                }
             }
         });
     }
